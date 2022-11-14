@@ -1,0 +1,21 @@
+{% extends "shared/base.html" %}
+
+<!-- {% block title %}
+  <title>The web-based DEMO page </title>
+{% endblock %} -->
+
+{% block content %}
+{% with msg=msg %}
+{% include "components/alerts.html" %}
+{% endwith %}
+    <!-- <div class="row">
+        <div class="col">
+            <h1 class="display-5">The web-based DEMO page</h1>
+        </div>
+    </div> -->
+
+    <body>
+        <!-- <p>Welcome to the web-based DEMO page! This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p> -->
+    </body>
+    <center><img src="{{ url_for('static', path='images/data.gif') }}" alt="" ></center>
+{% endblock %}

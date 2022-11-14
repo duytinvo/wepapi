@@ -1,0 +1,50 @@
+{% extends "shared/base.html" %}
+
+
+{% block title %}
+  <title>Doc Detail</title>
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="display-5">Doc Detail</h1>
+    </div>
+  </div>
+
+  <div class="row">
+      <table class="table table-striped table-hover">
+        <tbody>
+          <tr>
+            <th scope="row">Caption</th>
+            <td colspan="2">{{doc.caption}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Text</th>
+            <td colspan="2">{{doc.text}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Date</th>
+            <td colspan="2">{{doc.timestamp}}</td>
+          </tr>
+          <!-- <tr>
+            <th scope="row">Word Cloud</th>
+            <td colspan="2">{{img_path}}</td>
+          </tr> -->
+
+        </tbody>
+    </table>
+  </div>
+<div class="row">
+  <div class="col">
+    <h1 class="display-5">Word Cloud</h1>
+  </div>
+</div>
+<div class="container" align="center">
+  <img src="{{ url_for('static', path=img_path) }}" alt="Word Cloud" class="center" width="1024" height="512">
+  <h1><a href="/texts-webapp/download/{{img_path}}" target="blank"><button class='btn btn-primary' type="submit">Download</button></a> </h1>
+</div>
+
+</div>
+{% endblock %}
