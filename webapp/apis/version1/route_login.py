@@ -11,7 +11,7 @@ from jose import JWTError
 from sqlalchemy.orm import Session
 
 from webapp.apis.utils import OAuth2PasswordBearerWithCookie
-from webapp.core.config import settings
+from webapp.config import settings
 from webapp.core.hashing import Hasher
 from webapp.core.security import create_access_token
 from webapp.db.repository.login import get_user

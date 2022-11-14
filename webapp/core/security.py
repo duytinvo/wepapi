@@ -4,7 +4,7 @@ from typing import Optional
 
 from jose import jwt
 
-from webapp.core.config import settings
+from webapp.config import settings
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):

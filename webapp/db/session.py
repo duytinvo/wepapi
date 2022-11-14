@@ -3,7 +3,7 @@ from typing import Generator
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from webapp.core.config import settings
+from webapp.config import settings
 
 if settings.USE_SQLITE_DB == "True":
     SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"

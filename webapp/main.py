@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 from webapp.apis.base import api_router
-from webapp.core.config import settings
+from webapp.config import settings
 from webapp.db.base import Base
 from webapp.db.session import engine
 from webapp.db.utils import check_db_connected

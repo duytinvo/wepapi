@@ -14,7 +14,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # this is to include backend dir in sys.path so that we can import from db,main.py
 
 from webapp.apis.base import api_router
-from webapp.core.config import settings
+from webapp.config import settings
 from webapp.db.base import Base
 from webapp.db.session import get_db
 from webapp.tests.utils.users import authentication_token_from_email
