@@ -16,3 +16,4 @@ class User(Base):
     is_superuser = Column(Boolean(), default=False)
     jobs = relationship("Job", back_populates="owner")
     docs = relationship("Doc", back_populates="owner")
+    artifacts = relationship("Artifact", back_populates="owner")
