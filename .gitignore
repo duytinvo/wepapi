@@ -4,7 +4,7 @@
 .idea/
 *-info/
 *pycache*
-.env
+# .env
 venv
 test_db.db
 print_tree.py
