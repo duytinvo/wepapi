@@ -2,14 +2,14 @@
 
 
 {% block title %}
-  <title>Doc Detail</title>
+  <title>WordCloud Detail</title>
 {% endblock %}
 
 {% block content %}
 <div class="container">
   <div class="row">
     <div class="col">
-      <h1 class="display-5">Doc Detail</h1>
+      <h1 class="display-5">WordCloud Detail</h1>
     </div>
   </div>
 
@@ -46,7 +46,7 @@
   </div>
   
   <img src="{{ url_for('static', path=img_path) }}" alt="Word Cloud" class="center" width="1024" height="512">
-  <h1><a href="/texts-webapp/download/{{img_path}}" target="blank"><button class='btn btn-primary' type="submit">Download</button></a> </h1>
+  <h1><a href="/wdcloud-webapp/download/{{img_path}}" target="blank"><button class='btn btn-primary' type="submit">Download</button></a> </h1>
 </div>
 
 {% endblock %}

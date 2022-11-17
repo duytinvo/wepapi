@@ -18,8 +18,6 @@ from webapp.db.repository.login import get_user
 from webapp.db.session import get_db
 from webapp.schemas.tokens import Token
 
-# from fastapi.security import OAuth2PasswordBearer
-
 
 router = APIRouter()
 

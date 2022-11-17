@@ -20,7 +20,6 @@ from webapp.schemas.jobs import JobCreate
 from webapp.schemas.jobs import ShowJob
 
 router = APIRouter()
-# templates = Jinja2Templates(directory="templates")
 
 
 @router.post("/create-job/", response_model=ShowJob)

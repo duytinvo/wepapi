@@ -17,7 +17,7 @@
 
     <div class="row my-5">
         <h3 class="text-center display-4">Object Detection</h3>
-        <form action="/objects-webapp/upload_file" method = "post" enctype = "multipart/form-data">
+        <form action="/vision-webapp/objdet/upload_file" method = "post" enctype = "multipart/form-data">
           <strong> <u> Select picture to upload: </u> </strong><p></p>
             1. <select name="objtype" id="objtype">
                 <option value="general">General</option>
@@ -29,7 +29,7 @@
         <br>
         <br>
         <strong><u> OR Submit picture URL </u> </strong><p></p>
-        <form action = "/objects-webapp/upload_url" method="get">
+        <form action = "/vision-webapp/objdet/upload_url" method="get">
             1. <select name="objtype" id="objtype">
                 <option value="general">General</option>
                 <option value="logo">Logo</option>

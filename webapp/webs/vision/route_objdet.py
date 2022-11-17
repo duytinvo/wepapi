@@ -1,5 +1,4 @@
 import os
-import io
 import aiohttp
 import aiofiles
 from datetime import datetime
@@ -7,34 +6,21 @@ from datetime import datetime
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import Request
-from fastapi.responses import Response
-from fastapi import responses
-from fastapi import status
 from fastapi.responses import FileResponse
-from fastapi.security.utils import get_authorization_scheme_param
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
-from fastapi.encoders import jsonable_encoder
-from fastapi.responses import JSONResponse
 
-from webapp.apis.version1.route_login import get_current_user_from_token
-from webapp.core.constant import DOWNLOAD, UPLOAD
+from webapp.core.constant import DOWNLOAD
 from webapp.core.constant import DOWNLOAD_FOLDER, UPLOAD_FOLDER
-from webapp.db.models.users import User
-from webapp.db.repository.texts import create_new_doc
-from webapp.db.repository.texts import list_docs
-from webapp.db.repository.texts import retreive_doc
 from webapp.db.session import get_db
 from webapp.func.objdet_onnx import predict_object
-from webapp.schemas.texts import DocCreate
-from webapp.webs.texts.forms import DocCreateForm
 
 templates = Jinja2Templates(directory="templates")
 router = APIRouter(include_in_schema=False)
 
 @router.get("/post-an-object/")
 def create_object_get(request: Request, db: Session = Depends(get_db)):
-    return templates.TemplateResponse("objects/create_object.html", {"request": request})
+    return templates.TemplateResponse("vision/objdet/create_object.html", {"request": request})
 
 
 @router.route("/upload_url", methods = ["GET"])
@@ -67,11 +53,11 @@ async def upload_url(request):
         # return Response(content=bytes)
         # return JSONResponse(content=jsonable_encoder(url))
         # return FileResponse(downfilepath, filename=filename)
-        return templates.TemplateResponse("objects/detail.html",
+        return templates.TemplateResponse("vision/objdet/detail.html",
                                           {"request": request, "img_path": os.path.join(DOWNLOAD, filename)},)
     except Exception as e:
         print(e)
-        return templates.TemplateResponse("objects/create_object.html", request.form().__dict__)
+        return templates.TemplateResponse("vision/objdet/create_object.html", request.form().__dict__)
 
 
 @router.route("/upload_file", methods = ["POST"])
@@ -100,11 +86,11 @@ async def upload_file(request:Request):
                        pred_img_path=downfilepath)
         # return FileResponse(downfilepath, filename=filename)
         # return JSONResponse(content=jsonable_encoder(data["file"]))
-        return templates.TemplateResponse("objects/detail.html",
+        return templates.TemplateResponse("vision/objdet/detail.html",
                                           {"request": request, "img_path": os.path.join(DOWNLOAD, filename)},)
     except Exception as e:
         print(e)
-        return templates.TemplateResponse("objects/create_object.html", request.form().__dict__)
+        return templates.TemplateResponse("vision/objdet/create_object.html", request.form().__dict__)
 
 
 @router.get("/download/{file_path:path}")

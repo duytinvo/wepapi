@@ -58,7 +58,7 @@ async def create_job_post(request: Request, db: Session = Depends(get_db)):
             job = JobCreate(**form.__dict__)
             job = create_new_job(job=job, db=db, owner_id=current_user.id)
             return responses.RedirectResponse(
-                f"/details/{job.id}", status_code=status.HTTP_302_FOUND
+                f"/jobs-webapp/details/{job.id}", status_code=status.HTTP_302_FOUND
             )
         except Exception as e:
             print(e)

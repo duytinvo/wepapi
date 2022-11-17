@@ -48,3 +48,6 @@ matplotlib
 nltk
 
 wordcloud
+opencv-python
+aiohttp
+onnxruntime

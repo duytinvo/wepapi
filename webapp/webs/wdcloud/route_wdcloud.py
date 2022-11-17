@@ -14,13 +14,13 @@ from webapp.apis.version1.route_login import get_current_user_from_token
 from webapp.core.constant import DOWNLOAD
 from webapp.core.constant import DOWNLOAD_FOLDER
 from webapp.db.models.users import User
-from webapp.db.repository.texts import create_new_doc
-from webapp.db.repository.texts import list_docs
-from webapp.db.repository.texts import retreive_doc
+from webapp.db.repository.wdcould import create_new_doc
+from webapp.db.repository.wdcould import list_docs
+from webapp.db.repository.wdcould import retreive_doc
 from webapp.db.session import get_db
-from webapp.func.texts import WCgenerator
-from webapp.schemas.texts import DocCreate
-from webapp.webs.texts.forms import DocCreateForm
+from webapp.func.wdcloud import WCgenerator
+from webapp.schemas.wdcloud import DocCreate
+from webapp.webs.wdcloud.forms import DocCreateForm
 
 templates = Jinja2Templates(directory="templates")
 router = APIRouter(include_in_schema=False)
@@ -33,7 +33,7 @@ async def wordcloudboard(
     docs = list_docs(db=db)
     # filenames = ['{doc.owner_id}_{doc.id}_{doc.timestamp.strftime("%Y%m%d_%H%M%S")}.jpg' for doc in docs]
     return templates.TemplateResponse(
-        "texts/wordcloudboard.html", {"request": request, "docs": docs, "msg": msg}
+        "wdcloud/wordcloudboard.html", {"request": request, "docs": docs, "msg": msg}
     )
 
 
@@ -52,14 +52,14 @@ def doc_detail(id: int, request: Request, db: Session = Depends(get_db)):
     text = doc.text
     _ = WCgenerator.save_wc(text, filename=filepath)
     return templates.TemplateResponse(
-        "texts/detail.html",
+        "wdcloud/detail.html",
         {"request": request, "doc": doc, "img_path": os.path.join(DOWNLOAD, filename)},
     )
 
 
 @router.get("/post-a-doc/")
 def create_doc_get(request: Request, db: Session = Depends(get_db)):
-    return templates.TemplateResponse("texts/create_text.html", {"request": request})
+    return templates.TemplateResponse("wdcloud/create_wdcloud.html", {"request": request})
 
 
 @router.post("/post-a-doc/")
@@ -76,20 +76,20 @@ async def create_doc_post(request: Request, db: Session = Depends(get_db)):
             doc = DocCreate(**form.__dict__)
             doc = create_new_doc(doc=doc, db=db, owner_id=current_user.id)
             return responses.RedirectResponse(
-                f"/texts-webapp/details/{doc.id}", status_code=status.HTTP_302_FOUND
+                f"/wdcloud-webapp/details/{doc.id}", status_code=status.HTTP_302_FOUND
             )
         except Exception as e:
             print(e)
             form.__dict__.get("errors").append(
                 "You might not be logged in, In case problem persists please contact us."
             )
-            return templates.TemplateResponse("texts/create_text.html", form.__dict__)
-    return templates.TemplateResponse("texts/create_text.html", form.__dict__)
+            return templates.TemplateResponse("wdcloud/create_wdcloud.html", form.__dict__)
+    return templates.TemplateResponse("wdcloud/create_wdcloud.html", form.__dict__)
 
 
 @router.get("/delete-doc/")
 def show_jobs_to_delete(request: Request, db: Session = Depends(get_db)):
     docs = list_docs(db=db)
     return templates.TemplateResponse(
-        "texts/show_texts_to_delete.html", {"request": request, "docs": docs}
+        "wdcloud/show_wdcloud_to_delete.html", {"request": request, "docs": docs}
     )

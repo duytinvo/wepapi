@@ -2,8 +2,8 @@ from datetime import datetime
 
 from sqlalchemy.orm import Session
 
-from webapp.db.models.texts import Doc
-from webapp.schemas.texts import DocCreate
+from webapp.db.models.wdcloud import Doc
+from webapp.schemas.wdcloud import DocCreate
 
 
 def create_new_doc(doc: DocCreate, db: Session, owner_id: int):

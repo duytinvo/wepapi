@@ -1,0 +1,97 @@
+ <head>
+    <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script>
+            function clearContents()
+            {
+                let element = document.getElementById("review");
+                element.value = ''
+            }
+
+            function selectContents()
+            {
+                let element = document.getElementById("review");
+                element.select();
+            }
+
+            function copy_0() {
+                let textarea = document.getElementById("reply-0");
+                textarea.select();
+                document.execCommand("copy");
+            }
+
+            function copy_1() {
+                let textarea = document.getElementById("reply-1");
+                textarea.select();
+                document.execCommand("copy");
+            }
+
+            function copy_2() {
+                let textarea = document.getElementById("reply-2");
+                textarea.select();
+                document.execCommand("copy");
+            }
+
+            $(document).ready(function(){
+                var reply_group = $('.reply-group');
+                var replies = {{ replies|tojson }};
+                for(let i = 0; i < replies.length; i++){
+                    var j = (i + 1).toString();
+                    var reply_content = '<div class="form-group">' +
+                                        '<label>Reply ' + j + '</label>' +
+                                        '<textarea rows="15" class="form-control" id=reply-' + i.toString() + '>' + replies[i] +
+                                        '</textarea><br>' +   
+                                        '<button type="button" onclick="copy_' + i.toString() + '()" class="btn btn-success">Copy</button></div>';
+                    reply_group.append(reply_content);
+                }
+            });
+        </script>
+</head>
+{% extends "shared/base.html" %}
+{% block content %}
+  <!--<h1>{% block title %} Create a New Post {% endblock %}</h1>-->
+  
+  <form method="post">
+      <div class="form-group">
+          <label for="author">Customer name</label>
+          <input type="text" name="author" class="form-control" value="Guest"></input>
+      </div>
+      <div class="form-group">
+          <label for="hotel_name">Hotel name</label>
+          <input type="text" name="hotel_name" class="form-control" value="The hotel"></input>
+      </div>
+      <div class="form-group">
+          <label for="star">Star</label>
+          <input type="text" name="star" class="form-control" value="{{ request.form['star'] }}"></input>
+      </div>
+      <div class="form-group">
+          <label>Reply Length</label>
+          <select name="length_order">
+              <option value="0">very short</option>
+              <option value="1">short</option>
+              <option value="2">medium</option>
+              <option value="3" selected>long</option>
+              <option value="4">very long</option>
+          </select>
+      </div>
+      <div class="form-group">
+          <label>Number of replies</label>
+          <select name="num_replies">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3" selected>3</option>
+          </select>
+      </div>
+      <div class="form-group">
+          <label for="review">Review</label>
+          <textarea id="review" type="text" name="review" class="form-control" rows="5">{{ request.form['review'] }}</textarea>
+      </div>
+      <div class="form-group">
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="button" onclick="selectContents()" class="btn btn-warning">Select</button>
+          <button type="button" onclick="clearContents()" class="btn btn-danger">Delete</button>
+      </div>
+      <div class="reply-group"></div>
+  </form>
+  <!--    <p>{{ post }}</p>-->
+{% endblock %}

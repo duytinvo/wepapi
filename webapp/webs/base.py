@@ -7,9 +7,9 @@ from sqlalchemy.orm import Session
 from webapp.db.session import get_db
 from webapp.webs.auth import route_login
 from webapp.webs.jobs import route_jobs
-from webapp.webs.texts import route_texts
+from webapp.webs.wdcloud import route_wdcloud
 from webapp.webs.users import route_users
-from webapp.webs.objects import route_objects
+from webapp.webs.vision import route_objdet
 
 templates = Jinja2Templates(directory="templates")
 
@@ -23,12 +23,12 @@ async def home(request: Request, db: Session = Depends(get_db), msg: str = None)
     )
 
 
-api_router.include_router(route_jobs.router, prefix="", tags=["jobs-webapp"])
+api_router.include_router(route_jobs.router, prefix="/jobs-webapp", tags=["jobs-webapp"])
 api_router.include_router(route_users.router, prefix="", tags=["users-webapp"])
 api_router.include_router(route_login.router, prefix="", tags=["auth-webapp"])
 api_router.include_router(
-    route_texts.router, prefix="/texts-webapp", tags=["texts-webapp"]
+    route_wdcloud.router, prefix="/wdcloud-webapp", tags=["wdcloud-webapp"]
 )
 api_router.include_router(
-    route_objects.router, prefix="/objects-webapp", tags=["objects-webapp"]
+    route_objdet.router, prefix="/vision-webapp/objdet", tags=["vision-webapp_objdet"]
 )

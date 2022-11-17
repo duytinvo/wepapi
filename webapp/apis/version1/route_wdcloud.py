@@ -13,15 +13,14 @@ from sqlalchemy.orm import Session
 from webapp.apis.version1.route_login import get_current_user_from_token
 from webapp.core.constant import DOWNLOAD_FOLDER, UPLOAD_FOLDER
 from webapp.db.models.users import User
-from webapp.db.repository.texts import create_new_doc
-from webapp.db.repository.texts import delete_doc_by_id
-from webapp.db.repository.texts import retreive_doc
+from webapp.db.repository.wdcould import create_new_doc
+from webapp.db.repository.wdcould import delete_doc_by_id
+from webapp.db.repository.wdcould import retreive_doc
 from webapp.db.session import get_db
-from webapp.func.texts import WCgenerator
-from webapp.schemas.texts import DocCreate, ShowDoc
+from webapp.func.wdcloud import WCgenerator
+from webapp.schemas.wdcloud import DocCreate, ShowDoc
 
 router = APIRouter()
-# templates = Jinja2Templates(directory="templates")
 
 
 @router.post(
